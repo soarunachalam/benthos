@@ -25,6 +25,9 @@ conditions please [read the docs here](../conditions/README.md)
 It's possible to create fallback outputs for when an output target fails using
 a [`broker`](#broker) output with the 'try' pattern.
 
+The following is a list of core Benthos outputs. However, there are also more
+specialised or niche plugins available that are listed [here](./plugins.md).
+
 ### Contents
 
 1. [`amqp`](#amqp)

@@ -296,7 +296,10 @@ input:
 
 Note that in this example we have specified a processor at the broker level
 which will be applied to _all_ inputs, and we also have a processor at the baz
-level which is only applied to messages from the baz input.`
+level which is only applied to messages from the baz input.
+
+The following is a list of core Benthos inputs. However, there are also more
+specialised or niche plugins available that are listed [here](./plugins.md).`
 
 // Descriptions returns a formatted string of descriptions for each type.
 func Descriptions() string {

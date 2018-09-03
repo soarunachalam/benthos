@@ -45,6 +45,9 @@ for choosing a level of resiliency that meets your needs.
 - Websocket
 - [ZMQ4][zmq]
 
+As well as other more case-specific plugins that are listed in the documentation
+directories of each component.
+
 ## Documentation
 
 Documentation for Benthos components, concepts and recommendations can be found

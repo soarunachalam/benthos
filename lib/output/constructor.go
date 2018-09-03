@@ -288,7 +288,10 @@ conditions please [read the docs here](../conditions/README.md)
 ### Dead Letter Queues
 
 It's possible to create fallback outputs for when an output target fails using
-a ` + "[`broker`](#broker)" + ` output with the 'try' pattern.`
+a ` + "[`broker`](#broker)" + ` output with the 'try' pattern.
+
+The following is a list of core Benthos outputs. However, there are also more
+specialised or niche plugins available that are listed [here](./plugins.md).`
 
 // Descriptions returns a formatted string of collated descriptions of each
 // type.

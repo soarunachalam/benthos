@@ -284,7 +284,10 @@ parts is empty these processors will be applied to all message parts.
 Part indexes can be negative, and if so the part will be selected from the end
 counting backwards starting from -1. E.g. if part = -1 then the selected part
 will be the last part of the message, if part = -2 then the part before the last
-element will be selected, and so on.`
+element will be selected, and so on.
+
+The following is a list of core Benthos processors. However, there are also more
+specialised or niche plugins available that are listed [here](./plugins.md).`
 
 var footer = `
 [0]: ./examples.md`

@@ -38,13 +38,17 @@ import (
 	"github.com/Jeffail/benthos/lib/buffer"
 	"github.com/Jeffail/benthos/lib/cache"
 	"github.com/Jeffail/benthos/lib/input"
+	_ "github.com/Jeffail/benthos/lib/input/plugins"
 	"github.com/Jeffail/benthos/lib/log"
 	"github.com/Jeffail/benthos/lib/manager"
 	"github.com/Jeffail/benthos/lib/metrics"
 	"github.com/Jeffail/benthos/lib/output"
+	_ "github.com/Jeffail/benthos/lib/output/plugins"
 	"github.com/Jeffail/benthos/lib/pipeline"
 	"github.com/Jeffail/benthos/lib/processor"
 	"github.com/Jeffail/benthos/lib/processor/condition"
+	_ "github.com/Jeffail/benthos/lib/processor/condition/plugins"
+	_ "github.com/Jeffail/benthos/lib/processor/plugins"
 	"github.com/Jeffail/benthos/lib/stream"
 	strmmgr "github.com/Jeffail/benthos/lib/stream/manager"
 	"github.com/Jeffail/benthos/lib/util/config"
@@ -181,9 +185,17 @@ var (
 		"list-inputs", false,
 		"Print a list of available input options, then exit",
 	)
+	printInputPlugins = flag.Bool(
+		"list-input-plugins", false,
+		"Print a list of available input plugin options, then exit",
+	)
 	printOutputs = flag.Bool(
 		"list-outputs", false,
 		"Print a list of available output options, then exit",
+	)
+	printOutputPlugins = flag.Bool(
+		"list-output-plugins", false,
+		"Print a list of available output plugin options, then exit",
 	)
 	printBuffers = flag.Bool(
 		"list-buffers", false,
@@ -193,9 +205,17 @@ var (
 		"list-processors", false,
 		"Print a list of available processor options, then exit",
 	)
+	printProcessorPlugins = flag.Bool(
+		"list-processor-plugins", false,
+		"Print a list of available processor plugin options, then exit",
+	)
 	printConditions = flag.Bool(
 		"list-conditions", false,
-		"Print a list of available processor condition options, then exit",
+		"Print a list of available condition options, then exit",
+	)
+	printConditionPlugins = flag.Bool(
+		"list-condition-plugins", false,
+		"Print a list of available condition plugin options, then exit",
 	)
 	printCaches = flag.Bool(
 		"list-caches", false,
@@ -377,6 +397,22 @@ func bootstrap() Config {
 		}
 		if *printCaches {
 			fmt.Println(cache.Descriptions())
+		}
+		os.Exit(0)
+	}
+
+	if *printInputPlugins || *printOutputPlugins || *printProcessorPlugins || *printConditionPlugins {
+		if *printInputPlugins {
+			fmt.Println(input.PluginDescriptions())
+		}
+		if *printOutputPlugins {
+			fmt.Println(output.PluginDescriptions())
+		}
+		if *printProcessorPlugins {
+			fmt.Println(processor.PluginDescriptions())
+		}
+		if *printConditionPlugins {
+			fmt.Println(condition.PluginDescriptions())
 		}
 		os.Exit(0)
 	}

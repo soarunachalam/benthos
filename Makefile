@@ -65,6 +65,7 @@ clean:
 docs: $(APPS)
 	@$(PATHINSTBIN)/benthos --print-yaml --all > ./config/everything.yaml; true
 	@$(PATHINSTBIN)/benthos --list-inputs > ./docs/inputs/README.md; true
+	@$(PATHINSTBIN)/benthos --list-input-plugins > ./docs/inputs/plugins.md; true
 	@$(PATHINSTBIN)/benthos --list-processors > ./docs/processors/README.md; true
 	@$(PATHINSTBIN)/benthos --list-conditions > ./docs/conditions/README.md; true
 	@$(PATHINSTBIN)/benthos --list-buffers > ./docs/buffers/README.md; true

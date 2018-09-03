@@ -78,6 +78,9 @@ Sometimes large chunks of logic are reused across processors, or nested multiple
 times as branches of a larger condition. It is possible to avoid writing
 duplicate condition configs by using the [resource condition][resource].
 
+The following is a list of core Benthos conditions. However, there are also more
+specialised or niche plugins available that are listed [here](./plugins.md).
+
 ### Contents
 
 1. [`and`](#and)

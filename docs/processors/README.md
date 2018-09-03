@@ -31,6 +31,9 @@ counting backwards starting from -1. E.g. if part = -1 then the selected part
 will be the last part of the message, if part = -2 then the part before the last
 element will be selected, and so on.
 
+The following is a list of core Benthos processors. However, there are also more
+specialised or niche plugins available that are listed [here](./plugins.md).
+
 ### Contents
 
 1. [`archive`](#archive)
