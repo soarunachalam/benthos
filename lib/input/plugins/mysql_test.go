@@ -56,8 +56,8 @@ func TestMySQLIntegration(t *testing.T) {
 			"MYSQL_ROOT_PASSWORD=s3cr3t",
 		},
 		PortBindings: map[docker.Port][]docker.PortBinding{
-			"3306": []docker.PortBinding{
-				docker.PortBinding{
+			"3306": {
+				{
 					HostPort: "3306",
 				},
 			},
@@ -146,9 +146,9 @@ func testMySQLConnect(t *testing.T, db *sql.DB, config MySQLConfig) {
 
 	// insert mysql fixtures
 	rows := []testMySQLRow{
-		testMySQLRow{time.Now().Truncate(time.Microsecond), "foo", 1},
-		testMySQLRow{time.Now().Truncate(time.Microsecond), "bar", 0},
-		testMySQLRow{time.Now().Truncate(time.Microsecond), "baz", 1},
+		{time.Now().Truncate(time.Microsecond), "foo", 1},
+		{time.Now().Truncate(time.Microsecond), "bar", 0},
+		{time.Now().Truncate(time.Microsecond), "baz", 1},
 	}
 	stmt := "INSERT INTO `test`.`foo` (created_at, title, enabled) VALUES (?, ?, ?)"
 	for _, row := range rows {
@@ -353,9 +353,9 @@ func testMySQLBatch(t *testing.T, db *sql.DB, config MySQLConfig) {
 	// insert mysql fixtures
 
 	rows := []testMySQLRow{
-		testMySQLRow{time.Now().Truncate(time.Microsecond), "quuz", 1},
-		testMySQLRow{time.Now().Truncate(time.Microsecond), "corge", 0},
-		testMySQLRow{time.Now().Truncate(time.Microsecond), "grault", 1},
+		{time.Now().Truncate(time.Microsecond), "quuz", 1},
+		{time.Now().Truncate(time.Microsecond), "corge", 0},
+		{time.Now().Truncate(time.Microsecond), "grault", 1},
 	}
 	stmt := "INSERT INTO `test`.`foo` (created_at, title, enabled) VALUES (?, ?, ?)"
 	for _, row := range rows {

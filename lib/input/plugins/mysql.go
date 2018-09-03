@@ -49,10 +49,11 @@ func init() {
 	input.RegisterPlugin(
 		"mysql",
 		func() interface{} {
-			return NewMySQLConfig()
+			m := NewMySQLConfig()
+			return &m
 		},
 		func(iconf interface{}, mgr types.Manager, logger log.Modular, stats metrics.Type) (types.Input, error) {
-			conf, ok := iconf.(MySQLConfig)
+			conf, ok := iconf.(*MySQLConfig)
 			if !ok {
 				return nil, errors.New("failed to cast config")
 			}
@@ -62,7 +63,7 @@ func init() {
 				return nil, types.ErrCacheNotFound
 			}
 
-			m, err := NewMySQL(conf, cache, logger, stats)
+			m, err := NewMySQL(*conf, cache, logger, stats)
 			if err != nil {
 				return nil, err
 			}
