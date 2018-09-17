@@ -23,6 +23,7 @@ package text
 import (
 	"bytes"
 	"encoding/json"
+	"github.com/Jeffail/benthos/lib/util/redis"
 	"os"
 	"regexp"
 	"strconv"
@@ -107,6 +108,35 @@ func metadataMapFunction(msg Message, arg string) []byte {
 	return result
 }
 
+func fetchRedisFunction(msg Message, arg string) []byte {
+	//TODO get the key/repo name from message - Done
+	//TODO get hostname, port, time outs from yaml->arg - Done
+	//TODO use cache here and also in redis client
+	args := strings.Split(arg, ",")
+	for i:= range args {
+		args[i] = strings.TrimSpace(args[i])
+	}
+
+	position := args[0]
+	keyPath := args[1]
+	elems := strings.Split(keyPath, ".")
+	jObj, _ := msg.Get(0).JSON()
+	dataMap, _ := jObj.(map[string]interface{})
+
+	for i := 0; i< len(elems)-1; i++{
+		dataMap,_ = dataMap[elems[i]].(map[string]interface{})
+	}
+	repo,_ := dataMap[elems[len(elems)-1]].(string)
+
+	//Fetch from redis
+	host := args[2]
+	port := args[3]
+	conf := redis.Config{host, port}
+	rediscli := *redis.New(conf)
+
+	orgMap := rediscli.GetHashVal(repo)
+	return []byte (orgMap[position])
+}
 //------------------------------------------------------------------------------
 
 var functionRegex *regexp.Regexp
@@ -171,6 +201,7 @@ var functionVars = map[string]func(msg Message, arg string) []byte{
 	"json_field":           jsonFieldFunction,
 	"metadata":             metadataFunction,
 	"metadata_json_object": metadataMapFunction,
+	"fetch_redis":			fetchRedisFunction,
 }
 
 // ContainsFunctionVariables returns true if inBytes contains function variable
